@@ -10,10 +10,10 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> snippet.save()
 >>> snippet = Snippet(code='print("hello, world")\n')
 >>> snippet.save() <-----------------------------------------save to database
->>> serializer = SnippetSerializer(snippet) <-----------------------------------Pass database instance to serializers.
+>>> serializer = SnippetSerializer(snippet) <-----------------------------------Pass object instance to serializers so that it converted to a dict.
 >>> serializer.data <--------------------------------Check it out.
 {'id': 2, 'title': '', 'code': 'print("hello, world")\n', 'linenos': False, 'language': 'python', 'style': 'friendly'}
->>> content = JSONRenderer().render(serializer.data) <---Render it as json
+>>> content = JSONRenderer().render(serializer.data) <---Render it as json string.
 >>> content
 b'{"id":2,"title":"","code":"print(\\"hello, world\\")\\n","linenos":false,"language":"python","style":"friendly"}' <--Check it out.
 
