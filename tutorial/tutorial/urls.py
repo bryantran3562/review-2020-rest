@@ -41,11 +41,14 @@ Including another URLconf
 
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from snippets import views
+from snippets.views import SnippetList, SnippetDetail
+from automobile.views import PersonList, PersonDetail
 
 urlpatterns = [
-    path('snippets/', views.SnippetList.as_view()),
-    path('snippets/<int:pk>/', views.SnippetDetail.as_view()),
+    path('snippets/', SnippetList.as_view()),
+    path('snippets/<int:pk>/', SnippetDetail.as_view()),
+    path('persons/', PersonList.as_view()),
+    path('persons/<int:pk>/', PersonDetail.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
