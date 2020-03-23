@@ -39,16 +39,19 @@ Including another URLconf
 #BT - Class base view
 ####################################################################
 
-from django.urls import path
+from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from snippets.views import SnippetList, SnippetDetail
-from automobile.views import PersonList, PersonDetail
+from automobile.views import PersonList, PersonDetail, CarList, CarDetail
 
 urlpatterns = [
-    path('snippets/', SnippetList.as_view()),
-    path('snippets/<int:pk>/', SnippetDetail.as_view()),
-    path('persons/', PersonList.as_view()),
-    path('persons/<int:pk>/', PersonDetail.as_view()),
+    path('', include('snippets.urls')),
+    path('cars/', CarList.as_view()),
+    path('cars/<int:pk>/', CarDetail.as_view()),
+    
 ]
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns += [
+    path('api-auth/', include('rest_framework.urls')),
+]
+

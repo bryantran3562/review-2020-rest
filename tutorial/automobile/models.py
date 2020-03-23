@@ -16,6 +16,6 @@ class Car(models.Model):
     car_model = models.CharField(max_length=200)
     person = models.ForeignKey(Person, related_name='cars', on_delete=models.CASCADE)
 
-    def __unicode__(self):
-        return '%s:%s' % (self.car_make, self.car_model)
+    def __str__(self):
+        return '%s: %s' % (self.car_make, self.car_model)
 
