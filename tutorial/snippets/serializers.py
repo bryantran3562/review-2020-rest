@@ -36,5 +36,7 @@ from snippets.models import LANGUAGE_CHOICES, STYLE_CHOICES, Snippet
 
 class SnippetSerializer(serializers.ModelSerializer):
     class Meta:
+        #BT - Tell which models you want to connect with Serializer.
         model = Snippet
+        #BT - Which fields you want to send to the user in json format.
         fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
