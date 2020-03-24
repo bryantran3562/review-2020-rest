@@ -9,8 +9,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> snippet = Snippet(code='foo = "bar"\n') <------------Create a Snippet
 >>> snippet.save()
 >>> snippet = Snippet(code='print("hello, world")\n')
->>> snippet.save() <-----------------------------------------save to database
->>> serializer = SnippetSerializer(snippet) <-----------------------------------Pass object instance to serializers so that it converted to a dict.
+>>> snippet.save() <-------------------------save to database
+>>> serializer = SnippetSerializer(snippet) <-----------Pass object instance to serializers so that it converted to Python data type
 >>> serializer.data <--------------------------------Check it out.
 {'id': 2, 'title': '', 'code': 'print("hello, world")\n', 'linenos': False, 'language': 'python', 'style': 'friendly'}
 >>> content = JSONRenderer().render(serializer.data) <---Render it as json string.
@@ -18,12 +18,12 @@ Type "help", "copyright", "credits" or "license" for more information.
 b'{"id":2,"title":"","code":"print(\\"hello, world\\")\\n","linenos":false,"language":"python","style":"friendly"}' <--Check it out.
 
 >>> import io
->>> stream = io.BytesIO(content) <-----Receive json string
->>> data = JSONParser().parse(stream) <---------------------Parse it into Python object
->>> serializer = SnippetSerializer(data=data) <----Put it in serializer
+>>> stream = io.BytesIO(content) <-----Receive data from user
+>>> data = JSONParser().parse(stream) <---------------------Parse it into Python data type
+>>> serializer = SnippetSerializer(data=data) <----Put it in serializer so that it can convert the data back to object instance data.
 >>> serializer.is_valid() <---Check to see if it is valid.
 True
->>> serializer.validated_data <--Put them in an object instance
+>>> serializer.validated_data <--Loook at the data in object instance format
 OrderedDict([('title', ''), ('code', 'print("hello, world")'), ('linenos', False), ('language', 'python'), ('style', 'friendly')])
 >>> serializer.save() <--Finally save it to database.
 <Snippet: Snippet object (3)>
