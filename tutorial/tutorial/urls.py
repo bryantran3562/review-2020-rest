@@ -13,12 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-# from django.contrib import admin
-# from django.urls import path
+from django.contrib import admin
+from django.urls import path, include
 
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-# ]
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('snippets/', include('snippets.urls'))
+]
 
 ####################################################################
 #BT - @api_view
@@ -39,13 +40,13 @@ Including another URLconf
 #BT - Class base view
 ####################################################################
 
-from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-from snippets import views
+# from django.urls import path
+# from rest_framework.urlpatterns import format_suffix_patterns
+# from snippets import views
 
-urlpatterns = [
-    path('snippets/', views.SnippetList.as_view()),
-    path('snippets/<int:pk>/', views.SnippetDetail.as_view()),
-]
+# urlpatterns = [
+#     path('snippets/', views.SnippetList.as_view()),
+#     path('snippets/<int:pk>/', views.SnippetDetail.as_view()),
+# ]
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+# urlpatterns = format_suffix_patterns(urlpatterns)
