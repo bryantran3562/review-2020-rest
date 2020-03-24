@@ -23,13 +23,16 @@ class Snippet(models.Model):
     language = models.CharField(choices=LANGUAGE_CHOICES, default='python', max_length=100)
     style = models.CharField(choices=STYLE_CHOICES, default='friendly', max_length=100)
 
-    #BT - Authentication - Step1
+    ##############################################################################################
+    #BT - Authentication - Step1 - See serializer.
+    ##############################################################################################
     owner = models.ForeignKey('auth.User', related_name='snippets', on_delete=models.CASCADE)
     highlighted = models.TextField()
 
     class Meta:
         ordering = ['created']
 
+    #BT - This save() is just ensure that we can save with an additional hightlight we added above.
     def save(self, *args, **kwargs):
         """
         Use the `pygments` library to create a highlighted HTML
@@ -41,4 +44,5 @@ class Snippet(models.Model):
         formatter = HtmlFormatter(style=self.style, linenos=linenos,
                                 full=True, **options)
         self.highlighted = highlight(self.code, lexer, formatter)
+        #BT - Call save() method in parent class.
         super(Snippet, self).save(*args, **kwargs)

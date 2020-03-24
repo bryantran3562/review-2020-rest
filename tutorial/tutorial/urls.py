@@ -13,8 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-# from django.contrib import admin
-# from django.urls import path
+from django.contrib import admin
+from django.urls import path
 
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
@@ -45,12 +45,13 @@ from snippets.views import SnippetList, SnippetDetail
 from automobile.views import PersonList, PersonDetail, CarList, CarDetail
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', include('snippets.urls')),
     path('cars/', CarList.as_view()),
     path('cars/<int:pk>/', CarDetail.as_view()),
     
 ]
-
+#BT - Adding authentication from rest_framework
 urlpatterns += [
     path('api-auth/', include('rest_framework.urls')),
 ]

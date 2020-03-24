@@ -18,6 +18,7 @@ from snippets import views
 
 # API endpoints
 urlpatterns = format_suffix_patterns([
+    #BT - Right here is where our path goes to views.api_root
     path('', views.api_root),
     path('snippets/',
         views.SnippetList.as_view(),

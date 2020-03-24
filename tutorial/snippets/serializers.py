@@ -34,24 +34,36 @@ from snippets.models import LANGUAGE_CHOICES, STYLE_CHOICES, Snippet
 #BT - Using ModelSerializer class.
 #################################################################################
 
-class SnippetSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
-    class Meta:
-        model = Snippet
-        fields = ['id', 'title', 'code', 'linenos', 'language', 'style','owner']
+# class SnippetSerializer(serializers.ModelSerializer):
+#     #BT - This is used for displaying only. It will not used to write to the database.
+#     owner = serializers.ReadOnlyField(source='owner.username')
+#     class Meta:
+#         model = Snippet
+#         fields = ['id', 'title', 'code', 'linenos', 'language', 'style','owner']
 
 
 from django.contrib.auth.models import User
 
-class UserSerializer(serializers.ModelSerializer):
-    snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
+# class UserSerializer(serializers.ModelSerializer):
+#     #BT - The default ModelSerializer does not have any relation ship with user account.
+#     #     We can add an additional field to represent that if we want.
+#     snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
 
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'snippets']
+#     class Meta:
+#         model = User
+#         fields = ['id', 'username', 'snippets']
 
+##############################################################################################
+#BT - So if you want to have a hyperlink to a specific record you can just do so with:
+#     HyperLinkedModelSerializer class and specify a 'url' along with 'id' field.
+##############################################################################################
 class SnippetSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    #BT - Notes: the highlight is pointing to 'snippet-hightlight' url pattern and return html
+    #            format so that we can see it in html otherwise, we will not see it throught the api format.
+    #
+    #            Our snippet and user serializers include 'url' fields that by default will refer to '{model_name}-detail', 
+    #            which in this case will be 'snippet-detail' and 'user-detail'.
     highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
 
     class Meta:
