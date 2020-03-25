@@ -41,14 +41,14 @@ from django.urls import path
 
 from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from snippets.views import SnippetList, SnippetDetail
-from automobile.views import PersonList, PersonDetail, CarList, CarDetail
+#from snippets.views import SnippetList, SnippetDetail
+#from automobile.views import PersonList, PersonDetail, CarList, CarDetail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #BT - Understanding: Step 1: User entered a url: localhost/8000/
+    #     It matched here. See Step 2 in snippets.urls.
     path('', include('snippets.urls')),
-    path('cars/', CarList.as_view()),
-    path('cars/<int:pk>/', CarDetail.as_view()),
     
 ]
 #BT - Adding authentication from rest_framework
